@@ -3,18 +3,18 @@ import { createMarkup } from './02-markup';
 import { refs } from './refs';
 
 import { Notify } from 'notiflix';
-// import SimpleLightbox from 'simplelightbox';
-// import 'simplelightbox/dist/simple-lightbox.min.css';
+import SimpleLightbox from 'simplelightbox';
+import 'simplelightbox/dist/simple-lightbox.min.css';
 
 refs.form.addEventListener('submit', onFormSubmit);
 
 let searchQuery = '';
 let searchPage;
 
-// lightbox = new SimpleLightbox('.gallery a', {
-//   overlayOpacity: 0.5,
-//   captionDelay: 250,
-// });
+lightbox = new SimpleLightbox('.gallery a', {
+  overlayOpacity: 0.5,
+  captionDelay: 250,
+});
 
 const observer = new IntersectionObserver(
   entries => {
@@ -66,7 +66,7 @@ async function getImages(q, pages) {
     searchPage += 1;
     observer.observe(refs.guard);
 
-    // lightbox.refresh();
+    lightbox.refresh();
   } catch (error) {
     console.log(error);
     Notify.failure(`Ooops... Something goes wrong. Please, try again.`);
