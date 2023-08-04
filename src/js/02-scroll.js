@@ -24,6 +24,10 @@ async function getImages(q, pages) {
 
     createMarkup(data.hits);
 
+    if (searchPage === 1) {
+      Notify.success(`Hooray! We found ${data.totalHits} images.`);
+    }
+
     const lastPage = Math.ceil(data.totalHits / 40);
 
     if (searchPage >= lastPage) {

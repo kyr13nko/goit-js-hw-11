@@ -42,6 +42,7 @@ refs.loadMoreBtn.addEventListener('click', onLoadMoreBtnClick);
 
 function onLoadMoreBtnClick() {
   searchPage += 1;
+  refs.loadMoreBtn.classList.add('is-hidden');
   getImages(searchQuery, searchPage);
 }
 
