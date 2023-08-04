@@ -4,7 +4,7 @@ export function createMarkup(array) {
   const markup = array
     .map(({ webformatURL, tags, likes, views, comments, downloads }) => {
       return `
-          <div class="photo-card">
+          <div class="photo-card-ml">
             <img src="${webformatURL}" alt="${tags}" loading="lazy" />
             <div class="info">
               <p class="info-item">

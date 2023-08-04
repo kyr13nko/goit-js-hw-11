@@ -1,13 +1,36 @@
 import { Notify } from 'notiflix';
+import simpleLightbox from 'simplelightbox';
+import 'simplelightbox/dist/simple-lightbox.min.css';
 
 import { fetchPixabayData } from './pixabay-api';
-import { createMarkup } from './01-markup';
+import { createMarkup } from './02-markup';
 import { refs } from './refs';
 
 refs.form.addEventListener('submit', onFormSubmit);
 
 let searchQuery = '';
 let searchPage;
+
+lightbox = new SimpleLightbox('.gallery a', {
+  overlayOpacity: 0.5,
+  captionDelay: 250,
+});
+
+const observer = new IntersectionObserver(
+  entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        console.log(entry);
+        getImages(searchQuery, searchPage);
+      }
+    });
+  },
+  {
+    root: null,
+    rootMargin: '100px',
+    threshold: 1.0,
+  }
+);
 
 async function getImages(q, pages) {
   try {
@@ -30,22 +53,25 @@ async function getImages(q, pages) {
 
     const lastPage = Math.ceil(data.totalHits / 40);
 
-    if (searchPage >= lastPage) {
-      Notify.info(`We're sorry, but you've reached the end of search results.`);
-    } else {
+    if (searchPage === lastPage) {
+      {
+        observer.unobserve(refs.guard);
+        Notify.info(
+          `We're sorry, but you've reached the end of search results.`
+        );
+        return;
+      }
     }
+
+    searchPage += 1;
+    observer.observe(refs.guard);
+
+    lightbox.refresh();
   } catch (error) {
     console.log(error);
     Notify.failure(`Ooops... Something goes wrong. Please, try again.`);
   }
 }
-
-// refs.loadMoreBtn.addEventListener('click', onLoadMoreBtnClick);
-
-// function onLoadMoreBtnClick() {
-//   searchPage += 1;
-//   getImages(searchQuery, searchPage);
-// }
 
 function onFormSubmit(event) {
   event.preventDefault();

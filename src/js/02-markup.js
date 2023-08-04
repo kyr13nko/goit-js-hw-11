@@ -13,6 +13,7 @@ export function createMarkup(array) {
         downloads,
       }) => {
         return `
+        <a class="link-card" href="${largeImageURL}">
           <div class="photo-card">
             <img src="${webformatURL}" alt="${tags}" loading="lazy" />
             <div class="info">
@@ -30,7 +31,8 @@ export function createMarkup(array) {
               </p>
             </div>
           </div>
-          `;
+        </a>
+        `;
       }
     )
     .join('');
