@@ -9,7 +9,20 @@
 </head>
 
 <body>
-  <p><a href="index.html">Go back</a></p>
+  <p class="back-btn"><a href="index.html">Go back</a></p>
+
+  <div class="container">
+    <form class="search-form" id="search-form">
+      <input type="text" name="searchQuery" autocomplete="off" placeholder="Search images..." />
+      <button type="submit">Search</button>
+    </form>
+
+    <div class="gallery">
+      <!-- Картки зображень -->
+    </div>
+
+    <div class="guard"></div>
+  </div>
 
   <script type="module" src="./js/02-scroll.js"></script>
 </body>

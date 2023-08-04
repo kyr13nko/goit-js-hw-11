@@ -1,18 +1,9 @@
-import { refs } from './01-load-more-btn';
+import { refs } from './refs';
 
 export function createMarkup(array) {
   const markup = array
-    .map(
-      ({
-        webformatURL,
-        largeImageURL,
-        tags,
-        likes,
-        views,
-        comments,
-        downloads,
-      }) => {
-        return `
+    .map(({ webformatURL, tags, likes, views, comments, downloads }) => {
+      return `
           <div class="photo-card">
             <img src="${webformatURL}" alt="${tags}" loading="lazy" />
             <div class="info">
@@ -31,8 +22,7 @@ export function createMarkup(array) {
             </div>
           </div>
           `;
-      }
-    )
+    })
     .join('');
 
   refs.gallery.insertAdjacentHTML('beforeend', markup);
