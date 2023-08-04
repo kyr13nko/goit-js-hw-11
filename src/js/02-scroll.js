@@ -3,7 +3,7 @@ import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
 import { fetchPixabayData } from './pixabay-api';
-import { createMarkup } from './02-markup';
+import { createMarkup } from './markup';
 import { refs } from './refs';
 
 refs.form.addEventListener('submit', onFormSubmit);
@@ -47,6 +47,8 @@ async function getImages(q, pages) {
 
     createMarkup(data.hits);
 
+    lightbox.refresh();
+
     if (searchPage === 1) {
       Notify.success(`Hooray! We found ${data.totalHits} images.`);
     }
@@ -65,8 +67,6 @@ async function getImages(q, pages) {
 
     searchPage += 1;
     observer.observe(refs.guard);
-
-    lightbox.refresh();
   } catch (error) {
     console.log(error);
     Notify.failure(`Ooops... Something goes wrong. Please, try again.`);

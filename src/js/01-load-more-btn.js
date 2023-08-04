@@ -1,13 +1,19 @@
 import { Notify } from 'notiflix';
+import SimpleLightbox from 'simplelightbox';
 
 import { fetchPixabayData } from './pixabay-api';
-import { createMarkup } from './01-markup';
+import { createMarkup } from './markup';
 import { refs } from './refs';
 
 refs.form.addEventListener('submit', onFormSubmit);
 
 let searchQuery = '';
 let searchPage;
+
+const lightbox = new SimpleLightbox('.gallery a', {
+  overlayOpacity: 0.5,
+  captionDelay: 250,
+});
 
 async function getImages(q, pages) {
   try {
@@ -32,6 +38,8 @@ async function getImages(q, pages) {
     } else {
       refs.loadMoreBtn.classList.remove('is-hidden');
     }
+
+    lightbox.refresh();
   } catch (error) {
     console.log(error);
     Notify.failure(`Ooops... Something goes wrong. Please, try again.`);
