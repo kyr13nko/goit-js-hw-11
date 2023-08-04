@@ -1,17 +1,17 @@
-import { fetchPixabayData } from './pixabay-api';
-import { createMarkup } from './02-markup';
-import { refs } from './refs';
-
 import { Notify } from 'notiflix';
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
+
+import { fetchPixabayData } from './pixabay-api';
+import { createMarkup } from './02-markup';
+import { refs } from './refs';
 
 refs.form.addEventListener('submit', onFormSubmit);
 
 let searchQuery = '';
 let searchPage;
 
-lightbox = new SimpleLightbox('.gallery a', {
+const lightbox = new SimpleLightbox('.gallery a', {
   overlayOpacity: 0.5,
   captionDelay: 250,
 });
